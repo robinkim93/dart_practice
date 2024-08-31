@@ -20,15 +20,38 @@ String sayHiNamedParameterRequired(
         {required String name, required num age, required String country}) =>
     "hi $name, $age, $country";
 
+// ?? 연산자는 좌항이 null인지 체크하고, null이라면 우항을 아니면 좌항을 취하는 연산자
+String sayHiNameQQOperator([String? name]) => name?.toUpperCase() ?? 'hi';
+
+// ??= 연산자는 좌항이 null이라면 우항을 대입하고, 아니면 좌항 그대로를 취하는 연산자
+String sayHiNameQQEqual([String? name]) {
+  name ??= 'empty';
+  return name;
+}
+
+// 자료형을 새로 만들 수 있지만, 더 자세하게 지정하기 위해서는 클래스를 사용해야함
+// 하단의 함수에서는 name을 키로 가지는 값을 출력하지만, name이 아닌 다른 key를 사용할 수 있음
+typedef UserInfo = Map<String, String>;
+
+String sayHiTypeDef(UserInfo map) {
+  return 'hi ${map['name']}';
+}
+
 void main() {
   // void는 함수가 아무것도 return하지 않는 경우에 사용
 
   print(sayHelloFatArrow("robin"));
 
   // 순서를 모두 기억해야하고, 각 parameter가 어떤 데이터인지 알 수 없음
-  sayHi("robin", 31, "korea");
+  print(sayHi("robin", 31, "korea"));
 
-  sayHiNamedParameter(name: "robin", age: 31);
+  print(sayHiNamedParameter(name: "robin", age: 31));
 
-  sayHiNamedParameterRequired(name: "robin", age: 31, country: "korea");
+  print(sayHiNamedParameterRequired(name: "robin", age: 31, country: "korea"));
+
+  print(sayHiNameQQOperator());
+
+  print(sayHiNameQQEqual());
+
+  print(sayHiTypeDef({'dfwef': 'robin'}));
 }
